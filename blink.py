@@ -7,14 +7,12 @@ def image_capture(file_path):
 	picam = Picamera2()
 
 	config = picam.create_preview_configuration(main={"size": (2592,1944)})
-	#picam.exposure_mode = 'off'
-	#picam.shutter_speed = 10
 	config["transform"] = Transform(hflip = 1, vflip = 1)
 	picam.configure(config)
 	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(18, GPIO.OUT)
-	i = 0
+	i = 0	#variable to run below code only once
 	while i==0:
 		GPIO.output(18,GPIO.HIGH)
 		picam.start_preview(Preview.QTGL, transform = Transform(vflip=1,hflip = 1))
