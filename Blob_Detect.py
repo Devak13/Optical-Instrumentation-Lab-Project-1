@@ -14,7 +14,7 @@ tan = math.tan(math.radians(angle))            #tan of angle between laser and c
 yc = xc / tan                                  #Distance at which laser hits camera center in reference plane
 y1=yc                                          
 
-# Capture image
+# Capture image of the screen
 image_path = "/home/iap/Pictures/photo1.jpg"  
 ub.image_capture(image_path)
 
@@ -53,17 +53,17 @@ else:
     # Geometry calculations
     xoffset_pixel = xR/2 - mean_x
     yoffset_pixel = yR/2 - mean_y
-    xoffset_angle = xoffset_pixel * ifovx   # already radians
+    xoffset_angle = xoffset_pixel * ifovx   
 
-    print(f"offset angle (rad): {xoffset_angle}")
-    print(f"offset pixels: {xoffset_pixel}")
+    """print(f"offset angle (rad): {xoffset_angle}")
+    print(f"offset pixels: {xoffset_pixel}")"""
 
     if mean_x < xR/2:
         y = (yc * xc)/(xc + yc*math.tan(math.radians(xoffset_angle)))
     else:
         y = (yc * xc)/(xc - yc*math.tan(math.radians(xoffset_angle)))
     print(f"Object is at distance of {y}")
-    print(f"laser detected at ({mean_x},{mean_y})")
+    """print(f"laser detected at ({mean_x},{mean_y})")"""
     
      # Draw crosshair at centroid
     processed_image = image.copy()
@@ -71,11 +71,13 @@ else:
     draw.line((mean_x-5, mean_y, mean_x+5, mean_y), fill=(0,255,0), width=2)
     draw.line((mean_x, mean_y-5, mean_x, mean_y+5), fill=(0,255,0), width=2)
     processed_image.save("/home/iap/Pictures/processed_image1.jpg")
-    
+
+
+# Capture image with obbject in front of screen
+
 print("insert the object")
 sleep(5)
 
-# Capture image
 image_path = "/home/iap/Pictures/photo2.jpg"
 ub.image_capture(image_path)
 
@@ -101,7 +103,6 @@ blue  = roi[:, :, 2].astype(np.int16)
 mask = (red > 30) & (red > 1.5*green) & (red > 1.5*blue)
 
 ys, xs = np.where(mask)
-#print(str(ys)+" "+str(xs))   # coordinates within ROI
 
 if len(xs) == 0:
     print("Outside of region or not reading any red pixel")
@@ -115,8 +116,7 @@ else:
     # Geometry calculations
     xoffset_pixel = xR/2 - mean_x
     yoffset_pixel = yR/2 - mean_y
-    xoffset_angle = xoffset_pixel * ifovx   # already radians
-
+    xoffset_angle = xoffset_pixel * ifovx   
     print(f"offset angle (rad): {xoffset_angle}")
     print(f"offset pixels: {xoffset_pixel}")
     
@@ -134,9 +134,10 @@ else:
     else:
         y1 = (yc * xc)/(xc - yc*math.tan(math.radians(xoffset_angle)))    
     
-print(f"yc is {yc}, y1 is {y1}, y is {y}")
+"""print(f"yc is {yc}, y1 is {y1}, y is {y}")
+print(f"laser detected at ({mean_x},{mean_y})")"""
 print(f"Object is at distance of {y}")
-print(f"Height of the object is {y1 - y}")
-print(f"laser detected at ({mean_x},{mean_y})")
+print(f"Height of the object is {y - y1}")
+
 print("Waiting for button press...")
 
