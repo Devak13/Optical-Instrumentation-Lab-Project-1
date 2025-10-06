@@ -20,7 +20,7 @@ def image_capture(file_path):
 		picam.start_preview(Preview.QTGL, transform = Transform(vflip=1,hflip = 1))
 		
 		picam.start()
-		picam.set_controls({"AeEnable": False, "ExposureTime": 2000, "AnalogueGain":5.0})
+		picam.set_controls({"AeEnable": False, "ExposureTime": 1000, "AnalogueGain":2})
 		picam.capture_file(file_path)
 
 		picam.close()
