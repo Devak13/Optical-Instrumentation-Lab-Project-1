@@ -8,7 +8,6 @@ GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def run_blob_detect():
     print("Launching Blob Detect in terminal...")
-   
     subprocess.run(["python3", "/home/iap/Desktop/Blob_Detect.py"])
 
 print("Waiting for button press...")
